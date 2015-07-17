@@ -16,6 +16,7 @@ public final class TLCProxyConstants {
     public static final int SPIDER_CONST_HTTP_TIMEOUT = 10000;
     public static final int SPIDER_CONST_THREAD_SIZE = 5;
     public static volatile boolean SPIDER_CONST_PROXY_STATUS = false;
+
     private TLCProxyConstants() {
         throw new UnsupportedOperationException();
     }

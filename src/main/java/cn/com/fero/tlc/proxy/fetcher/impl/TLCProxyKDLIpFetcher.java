@@ -2,14 +2,13 @@ package cn.com.fero.tlc.proxy.fetcher.impl;
 
 import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
 import cn.com.fero.tlc.proxy.exception.TLCProxyProxyException;
+import cn.com.fero.tlc.proxy.fetcher.TLCProxyIpFetcher;
 import cn.com.fero.tlc.proxy.http.TLCProxyHTMLParser;
 import cn.com.fero.tlc.proxy.http.TLCProxyRequest;
-import cn.com.fero.tlc.proxy.fetcher.TLCProxyIpFetcher;
 import cn.com.fero.tlc.proxy.util.TLCProxyLoggerUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class TLCProxyKDLIpFetcher extends TLCProxyIpFetcher {
     private void addToIpList(List<TagNode> ipNodeList, List<String> ipList) throws IOException {
         for (TagNode ipNode : ipNodeList) {
             String type = TLCProxyHTMLParser.parseText(ipNode, "td[4]");
-            if(StringUtils.containsIgnoreCase(type, TLCProxyConstants.SPIDER_CONST_HTTPS)) {
+            if (StringUtils.containsIgnoreCase(type, TLCProxyConstants.SPIDER_CONST_HTTPS)) {
                 String ip = TLCProxyHTMLParser.parseText(ipNode, "td[1]");
                 String port = TLCProxyHTMLParser.parseText(ipNode, "td[2]");
                 if (StringUtils.isEmpty(ip) || StringUtils.isEmpty(port)) {

@@ -1,6 +1,5 @@
 package cn.com.fero.tlc.proxy.job;
 
-import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
 import cn.com.fero.tlc.proxy.exception.TLCProxyProxyException;
 import cn.com.fero.tlc.proxy.fetcher.TLCProxyIpFetcher;
 import cn.com.fero.tlc.proxy.util.TLCProxyLoggerUtil;
@@ -11,7 +10,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
@@ -21,12 +21,12 @@ import java.util.concurrent.ExecutorService;
 @Component
 @EnableScheduling
 public class TLCProxyFetchJob {
+    @Resource
+    public Set<String> usefulIp;
     @Autowired
     private List<TLCProxyIpFetcher> fetchers;
     @Autowired
     private ExecutorService threadPool;
-    @Resource
-    public Set<String> usefulIp;
 
     @Scheduled(cron = "0/10 * * * * *")
     public void execute() {
