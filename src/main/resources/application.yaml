@@ -1,0 +1,12 @@
+tlc:
+    proxy:
+        ip:
+            localhost: 118.26.62.5
+        url:
+            fetch:
+                test: http://1111.ip138.com/ic.asp
+                kdl: http://www.kuaidaili.com/proxylist/
+                xcnn: http://www.xici.net.co/nn/
+                xcnt: http://www.xici.net.co/nt/
+                dl5566: http://www.daili5566.com/?stype=1&page=1
+
