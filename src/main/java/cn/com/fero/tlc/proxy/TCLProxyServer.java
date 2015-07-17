@@ -17,7 +17,6 @@ public class TCLProxyServer {
         SpringApplication app = new SpringApplication(TCLProxyServer.class);
         app.setWebEnvironment(true);
         app.setShowBanner(false);
-        app.setRegisterShutdownHook(true);
         app.run(args);
     }
 
