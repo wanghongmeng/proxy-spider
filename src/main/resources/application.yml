@@ -1,0 +1,39 @@
+spring.profiles.active: dev
+spring.main.web_environment: true
+spring.main.show_banner: false
+spring.http.encoding.charset: UTF-8
+spring.http.encoding.enabled: true
+spring.http.encoding.force: true
+spring.http.gzip.enabled: true
+server.port: 9090
+server.tomcat.compression: on
+server.tomcat.compressable-mime-types: text/html,text/plain,application/json
+server.tomcat.uri-encoding: UTF-8
+management.port: 9091
+management.context-path: /actuator
+#endpoints.shutdown.enabled: true
+error.whitelabel.enabled: true
+tlc.proxy.url.fetch:
+    test: http://1111.ip138.com/ic.asp
+    kdl: http://www.kuaidaili.com/proxylist/
+    xcnn: http://www.xici.net.co/nn/
+    xcnt: http://www.xici.net.co/nt/
+    dl5566: http://www.daili5566.com/?stype=1&page=1
+
+---
+spring.profiles: dev
+logging.config: classpath:logback-dev.xml
+management.address: 127.0.0.1
+tlc.proxy.ip.localhost: 118.26.62.5
+
+---
+spring.profiles: test
+logging.config: classpath:logback-test.xml
+management.address: 192.168.0.17
+tlc.proxy.ip.localhost: 119.29.62.227
+
+---
+spring.profiles: prod
+logging.config: classpath:logback-prod.xml
+management.address: 192.168.0.17
+tlc.proxy.ip.localhost: 119.29.62.227

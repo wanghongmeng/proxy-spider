@@ -2,7 +2,7 @@ package cn.com.fero.tlc.proxy.job;
 
 import cn.com.fero.tlc.proxy.exception.TLCProxyProxyException;
 import cn.com.fero.tlc.proxy.fetcher.TLCProxyIpFetcher;
-import cn.com.fero.tlc.proxy.util.TLCProxyLoggerUtil;
+import cn.com.fero.tlc.proxy.logger.TLCProxyLogger;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -49,9 +49,9 @@ public class TLCProxyFetchJob {
             }
 
             gate.await();
-            TLCProxyLoggerUtil.getLogger().info("抓取代理IP结束");
+            TLCProxyLogger.getLogger().info("抓取代理IP结束");
         } catch (InterruptedException e) {
-            TLCProxyLoggerUtil.getLogger().error(ExceptionUtils.getStackTrace(e));
+            TLCProxyLogger.getLogger().error(ExceptionUtils.getStackTrace(e));
         }
     }
 }

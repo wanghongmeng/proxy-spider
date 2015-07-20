@@ -1,4 +1,4 @@
-package cn.com.fero.tlc.proxy.util;
+package cn.com.fero.tlc.proxy.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,10 +6,10 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by gizmo on 15/6/17.
  */
-public final class TLCProxyLoggerUtil {
-    private static final Logger logger = LoggerFactory.getLogger(TLCProxyLoggerUtil.class);
+public final class TLCProxyLogger {
+    private static final Logger logger = LoggerFactory.getLogger(TLCProxyLogger.class);
 
-    private TLCProxyLoggerUtil() {
+    private TLCProxyLogger() {
         throw new UnsupportedOperationException();
     }
 

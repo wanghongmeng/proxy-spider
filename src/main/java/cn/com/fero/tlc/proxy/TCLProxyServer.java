@@ -1,6 +1,6 @@
 package cn.com.fero.tlc.proxy;
 
-import cn.com.fero.tlc.proxy.util.TLCProxyLoggerUtil;
+import cn.com.fero.tlc.proxy.logger.TLCProxyLogger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -14,14 +14,11 @@ import javax.annotation.PreDestroy;
 public class TCLProxyServer {
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(TCLProxyServer.class);
-        app.setWebEnvironment(true);
-        app.setShowBanner(false);
-        app.run(args);
+       SpringApplication.run(TCLProxyServer.class, args);
     }
 
     @PreDestroy
     public void destory() {
-        TLCProxyLoggerUtil.getLogger().info("close tlc-proxy java process");
+        TLCProxyLogger.getLogger().info("close tlc-proxy java process");
     }
 }

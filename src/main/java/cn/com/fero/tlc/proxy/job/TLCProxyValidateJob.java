@@ -2,7 +2,7 @@ package cn.com.fero.tlc.proxy.job;
 
 import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
 import cn.com.fero.tlc.proxy.http.TLCProxyRequest;
-import cn.com.fero.tlc.proxy.util.TLCProxyLoggerUtil;
+import cn.com.fero.tlc.proxy.logger.TLCProxyLogger;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -43,14 +43,14 @@ public class TLCProxyValidateJob {
 
     public void updateProxy() {
         if (CollectionUtils.isEmpty(usefulIp)) {
-            TLCProxyLoggerUtil.getLogger().info("代理IP列表为空");
+            TLCProxyLogger.getLogger().info("代理IP列表为空");
             clearProxy();
             return;
         }
 
         int random = RandomUtils.nextInt(0, usefulIp.size());
         String ipAddress = (String) usefulIp.toArray()[random];
-        TLCProxyLoggerUtil.getLogger().info("更新代理IP: " + ipAddress);
+        TLCProxyLogger.getLogger().info("更新代理IP: " + ipAddress);
         String[] ipAddressArray = ipAddress.split(TLCProxyConstants.SPIDER_CONST_COLON);
         String ip = ipAddressArray[0];
         String port = ipAddressArray[1];
@@ -83,7 +83,7 @@ public class TLCProxyValidateJob {
             TLCProxyConstants.SPIDER_CONST_PROXY_STATUS = true;
             response = TLCProxyRequest.get(testUrl, true);
         } catch (Exception e) {
-            TLCProxyLoggerUtil.getLogger().info("代理不可用，重新更新代理");
+            TLCProxyLogger.getLogger().info("代理不可用，重新更新代理");
             return false;
         } finally {
             TLCProxyConstants.SPIDER_CONST_PROXY_STATUS = false;
@@ -95,12 +95,12 @@ public class TLCProxyValidateJob {
 //            return true;
 //        }
 
-        TLCProxyLoggerUtil.getLogger().info("代理不可用，重新更新代理");
+        TLCProxyLogger.getLogger().info("代理不可用，重新更新代理");
         return false;
     }
 
     public void clearProxy() {
-        TLCProxyLoggerUtil.getLogger().info("清除代理");
+        TLCProxyLogger.getLogger().info("清除代理");
         System.setProperty(TLCProxyConstants.SPIDER_CONST_HTTP_PROXY_SET, "false");
         System.setProperty(TLCProxyConstants.SPIDER_CONST_HTTP_PROXY_HOST, StringUtils.EMPTY);
         System.setProperty(TLCProxyConstants.SPIDER_CONST_HTTP_PROXY_PORT, StringUtils.EMPTY);

@@ -32,6 +32,7 @@
 
     <properties>
         <java.version>1.7</java.version>
+        <tomcat.version>7.0.59</tomcat.version>
         <properties.version.commons-lang3>3.4</properties.version.commons-lang3>
         <properties.version.commons-collections>4.0</properties.version.commons-collections>
         <propertie.version.http-client>4.3.1</propertie.version.http-client>
@@ -42,6 +43,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

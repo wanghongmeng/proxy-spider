@@ -5,7 +5,7 @@ import cn.com.fero.tlc.proxy.exception.TLCProxyProxyException;
 import cn.com.fero.tlc.proxy.fetcher.TLCProxyIpFetcher;
 import cn.com.fero.tlc.proxy.http.TLCProxyHTMLParser;
 import cn.com.fero.tlc.proxy.http.TLCProxyRequest;
-import cn.com.fero.tlc.proxy.util.TLCProxyLoggerUtil;
+import cn.com.fero.tlc.proxy.logger.TLCProxyLogger;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +23,7 @@ public class TLCProxyXCNTIpFetcher extends TLCProxyIpFetcher {
     @Override
     public List<String> doFetch() {
         try {
-            TLCProxyLoggerUtil.getLogger().info("开始抓取西刺国内透明代理");
+            TLCProxyLogger.getLogger().info("开始抓取西刺国内透明代理");
             List<String> ipList = new ArrayList();
 
             String content = TLCProxyRequest.get(fetchUrl, false)
@@ -48,7 +48,7 @@ public class TLCProxyXCNTIpFetcher extends TLCProxyIpFetcher {
         } catch (Exception e) {
             throw new TLCProxyProxyException(e);
         } finally {
-            TLCProxyLoggerUtil.getLogger().info("抓取西刺国内透明代理结束");
+            TLCProxyLogger.getLogger().info("抓取西刺国内透明代理结束");
         }
     }
 }

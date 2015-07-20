@@ -5,7 +5,7 @@ import cn.com.fero.tlc.proxy.exception.TLCProxyProxyException;
 import cn.com.fero.tlc.proxy.fetcher.TLCProxyIpFetcher;
 import cn.com.fero.tlc.proxy.http.TLCProxyHTMLParser;
 import cn.com.fero.tlc.proxy.http.TLCProxyRequest;
-import cn.com.fero.tlc.proxy.util.TLCProxyLoggerUtil;
+import cn.com.fero.tlc.proxy.logger.TLCProxyLogger;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,11 +42,11 @@ public class TLCProxyKDLIpFetcher extends TLCProxyIpFetcher {
         List<String> ipList = new ArrayList();
         try {
             String totalPage = getTotalPage(fetchUrl);
-            TLCProxyLoggerUtil.getLogger().info("抓取快代理，总页数:" + totalPage);
+            TLCProxyLogger.getLogger().info("抓取快代理，总页数:" + totalPage);
 
             int totalPageNum = Integer.parseInt(totalPage);
             for (int page = 1; page <= totalPageNum; page++) {
-                TLCProxyLoggerUtil.getLogger().info("开始抓取快代理第" + page + "页");
+                TLCProxyLogger.getLogger().info("开始抓取快代理第" + page + "页");
                 List<TagNode> ipNodeList = getIpNode(fetchUrl, page);
                 addToIpList(ipNodeList, ipList);
             }
@@ -55,7 +55,7 @@ public class TLCProxyKDLIpFetcher extends TLCProxyIpFetcher {
         } catch (Exception e) {
             throw new TLCProxyProxyException(e);
         } finally {
-            TLCProxyLoggerUtil.getLogger().info("抓取快代理结束");
+            TLCProxyLogger.getLogger().info("抓取快代理结束");
         }
     }
 
