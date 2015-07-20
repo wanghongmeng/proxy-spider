@@ -1,17 +1,16 @@
 package cn.com.fero.tlc.proxy.job;
 
-import cn.com.fero.tlc.proxy.exception.TLCProxyProxyException;
+import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
+import cn.com.fero.tlc.proxy.common.TLCProxyProxyException;
 import cn.com.fero.tlc.proxy.fetcher.TLCProxyIpFetcher;
 import cn.com.fero.tlc.proxy.logger.TLCProxyLogger;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
@@ -20,38 +19,44 @@ import java.util.concurrent.ExecutorService;
  */
 @Component
 @EnableScheduling
-public class TLCProxyFetchJob {
-    @Resource
-    public Set<String> usefulIp;
-    @Autowired
-    private List<TLCProxyIpFetcher> fetchers;
+public class TLCProxyFetchJob extends TLCProxyJob {
     @Autowired
     private ExecutorService threadPool;
+    @Autowired
+    private List<TLCProxyIpFetcher> fetchers;
 
-    @Scheduled(cron = "0/10 * * * * *")
-    public void execute() {
-        try {
-            usefulIp.clear();
-            final CountDownLatch gate = new CountDownLatch(fetchers.size());
-            for (final TLCProxyIpFetcher ipFetcher : fetchers) {
-                threadPool.submit(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            usefulIp.addAll(ipFetcher.doFetch());
-                        } catch (Exception e) {
-                            throw new TLCProxyProxyException(e);
-                        } finally {
-                            gate.countDown();
+    @Scheduled(cron = "0 */1 * * * *")
+    public void startJob() {
+        execute(new TLCProxyJobExecutor() {
+            @Override
+            public void doExecute() throws Exception {
+                final CountDownLatch gate = new CountDownLatch(fetchers.size());
+                for (final TLCProxyIpFetcher ipFetcher : fetchers) {
+                    threadPool.submit(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Map<String, TLCProxyConstants.PROXY_TYPE> ipMap = ipFetcher.doFetch();
+
+                                for (Map.Entry<String, TLCProxyConstants.PROXY_TYPE> entry : ipMap.entrySet()) {
+                                    if (entry.getValue() == TLCProxyConstants.PROXY_TYPE.HTTP) {
+                                        httpFetchQueue.put(entry.getKey());
+                                    }
+                                    if (entry.getValue() == TLCProxyConstants.PROXY_TYPE.HTTPS) {
+                                        httpsFetchQueue.put(entry.getKey());
+                                    }
+                                }
+                            } catch (Exception e) {
+                                throw new TLCProxyProxyException(e);
+                            } finally {
+                                gate.countDown();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                gate.await();
+                TLCProxyLogger.getLogger().info("抓取代理IP结束");
             }
-
-            gate.await();
-            TLCProxyLogger.getLogger().info("抓取代理IP结束");
-        } catch (InterruptedException e) {
-            TLCProxyLogger.getLogger().error(ExceptionUtils.getStackTrace(e));
-        }
+        });
     }
 }

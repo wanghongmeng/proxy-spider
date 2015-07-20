@@ -1,6 +1,6 @@
 package cn.com.fero.tlc.proxy.http;
 
-import cn.com.fero.tlc.proxy.exception.TLCProxyProxyException;
+import cn.com.fero.tlc.proxy.common.TLCProxyProxyException;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;

@@ -9,9 +9,13 @@ import cn.com.fero.tlc.proxy.fetcher.impl.TLCProxyXCNTIpFetcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * Created by wanghongmeng on 2015/7/17.
@@ -49,8 +53,23 @@ public class TLCProxyConfiguration {
     }
 
     @Bean
-    public Set<String> usefulIp() {
-        return Collections.synchronizedSet(new HashSet());
+    public LinkedBlockingDeque<String> httpFetchQueue() {
+        return new LinkedBlockingDeque(TLCProxyConstants.SPIDER_CONST_QUEUE_INIT_SIZE);
+    }
+
+    @Bean
+    public LinkedBlockingDeque<String> httpsFetchQueue() {
+        return new LinkedBlockingDeque(TLCProxyConstants.SPIDER_CONST_QUEUE_INIT_SIZE);
+    }
+
+    @Bean
+    public Set<String> httpProxy() {
+        return new HashSet();
+    }
+
+    @Bean
+    public Set<String> httpsProxy() {
+        return new HashSet();
     }
 
     @Bean

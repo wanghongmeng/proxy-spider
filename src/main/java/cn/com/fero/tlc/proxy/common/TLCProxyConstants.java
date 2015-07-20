@@ -6,20 +6,31 @@ package cn.com.fero.tlc.proxy.common;
 public final class TLCProxyConstants {
     public static final String SPIDER_CONST_CHARACTER_ENCODING = "UTF-8";
     public static final String SPIDER_CONST_COLON = ":";
-    public static final String SPIDER_CONST_HTTP_PROXY_SET = "http.proxySet";
-    public static final String SPIDER_CONST_HTTP_PROXY_HOST = "http.proxyHost";
-    public static final String SPIDER_CONST_HTTP_PROXY_PORT = "http.proxyPort";
-    public static final String SPIDER_CONST_HTTPS = "HTTPS";
-    public static final String SPIDER_CONST_RESPONSE_STATUS_CODE = "statusCode";
+    public static final String SPIDER_CONST_RESPONSE_STATUS = "status";
     public static final String SPIDER_CONST_RESPONSE_CONTENT = "content";
     public static final int SPIDER_CONST_RESPONSE_STATUS_SUCCESS = 200;
-    public static final int SPIDER_CONST_HTTP_TIMEOUT = 10000;
+    public static final int SPIDER_CONST_RESPONSE_STATUS_FAIL = 500;
+    public static final int SPIDER_CONST_HTTP_TIMEOUT = 5000;
     public static final int SPIDER_CONST_THREAD_SIZE = 5;
+    public static final int SPIDER_CONST_QUEUE_INIT_SIZE = 1000;
     public static final String SPIDER_CONST_DATE_TIME_FORMAT = "yyyy-MM-ss HH:mm:ss";
-    public static volatile boolean SPIDER_CONST_PROXY_STATUS = false;
 
     private TLCProxyConstants() {
         throw new UnsupportedOperationException();
+    }
+
+    public enum PROXY_TYPE {
+        HTTP("http"), HTTPS("https");
+
+        private String value;
+
+        private PROXY_TYPE(String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return this.value;
+        }
     }
 
 

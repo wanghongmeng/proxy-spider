@@ -46,7 +46,7 @@ public class TLCProxy {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TLCProxyIp{");
-        sb.append("ip='").append(ip).append('\'');
+        sb.append("ipUrl='").append(ip).append('\'');
         sb.append(", port=").append(port);
         sb.append('}');
         return sb.toString();

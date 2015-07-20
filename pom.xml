@@ -37,6 +37,7 @@
         <properties.version.commons-collections>4.0</properties.version.commons-collections>
         <propertie.version.http-client>4.3.1</propertie.version.http-client>
         <properties.version.htmlcleaner>2.2.1</properties.version.htmlcleaner>
+        <properties.version.json-lib>2.4</properties.version.json-lib>
     </properties>
 
     <dependencies>
@@ -75,6 +76,12 @@
             <groupId>net.sourceforge.htmlcleaner</groupId>
             <artifactId>htmlcleaner</artifactId>
             <version>${properties.version.htmlcleaner}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>${properties.version.json-lib}</version>
+            <classifier>jdk15</classifier>
         </dependency>
     </dependencies>
 

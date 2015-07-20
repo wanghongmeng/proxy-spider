@@ -14,7 +14,7 @@ import javax.annotation.PreDestroy;
 public class TCLProxyServer {
 
     public static void main(String[] args) {
-       SpringApplication.run(TCLProxyServer.class, args);
+        SpringApplication.run(TCLProxyServer.class, args);
     }
 
     @PreDestroy
