@@ -1,7 +1,6 @@
 package cn.com.fero.tlc.proxy.http.test;
 
 import org.junit.Test;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
@@ -11,7 +10,6 @@ import java.util.Queue;
 /**
  * Created by gizmo on 15/6/19.
  */
-@SpringApplicationConfiguration(classes = TLCProxyHttpTest.class)
 public class TLCProxyQueueTest extends TLCProxyTest {
 
     @Test

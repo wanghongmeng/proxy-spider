@@ -1,8 +1,6 @@
 package cn.com.fero.tlc.proxy.job;
 
 import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
-import cn.com.fero.tlc.proxy.common.TLCProxyJsonUtil;
-import cn.com.fero.tlc.proxy.http.TLCProxyRequest;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -45,7 +43,7 @@ public class TLCProxyValidateHttpJob extends TLCProxyJob {
                             return false;
                         }
 
-                        Map<String, Object> response = TLCProxyRequest.postViaProxy(httpTestUrl, param, ip, Integer.parseInt(port));
+                        Map<String, Object> response = tlcProxyRequestService.postViaProxy(httpTestUrl, param, ip, Integer.parseInt(port));
                         int responseCode = (int) response.get(TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS);
 
                         if (responseCode != TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
@@ -53,12 +51,12 @@ public class TLCProxyValidateHttpJob extends TLCProxyJob {
                         }
 
                         String responseContent = (String) response.get(TLCProxyConstants.SPIDER_CONST_RESPONSE_CONTENT);
-                        String data = TLCProxyJsonUtil.getString(responseContent, "data");
+                        String data = tlcProxyJsonService.getString(responseContent, "data");
                         if (StringUtils.isEmpty(data)) {
                             return false;
                         }
 
-                        String responseIp = TLCProxyJsonUtil.getString(data, "ip");
+                        String responseIp = tlcProxyJsonService.getString(data, "ip");
                         if (StringUtils.equalsIgnoreCase(responseIp, localhost)) {
                             return false;
                         }

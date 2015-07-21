@@ -1,7 +1,6 @@
 package cn.com.fero.tlc.proxy.job;
 
 import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
-import cn.com.fero.tlc.proxy.http.TLCProxyRequest;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +36,7 @@ public class TLCProxyValidateHttpsJob extends TLCProxyJob {
                             return false;
                         }
 
-                        Map<String, Object> response = TLCProxyRequest.getViaProxy(httpsTestUrl, ip, Integer.parseInt(port));
+                        Map<String, Object> response = tlcProxyRequestService.getViaProxy(httpsTestUrl, ip, Integer.parseInt(port));
                         int responseStatusCode = (int) response.get(TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS);
 
                         return responseStatusCode == TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS;

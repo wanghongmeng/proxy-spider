@@ -1,4 +1,4 @@
-package cn.com.fero.tlc.proxy.common;
+package cn.com.fero.tlc.proxy.service;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -6,6 +6,7 @@ import net.sf.json.JsonConfig;
 import net.sf.json.util.JavaIdentifierTransformer;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,12 +16,10 @@ import java.util.List;
 /**
  * Created by wanghongmeng on 2015/6/24.
  */
-public final class TLCProxyJsonUtil {
-    private TLCProxyJsonUtil() {
-        throw new UnsupportedOperationException();
-    }
+@Service
+public class TLCProxyJsonService {
 
-    public static String object2Json(Object obj) {
+    public String object2Json(Object obj) {
         if (null == obj) {
             return StringUtils.EMPTY;
         }
@@ -28,7 +27,7 @@ public final class TLCProxyJsonUtil {
         return JSONObject.fromObject(obj).toString();
     }
 
-    public static String array2Json(List list) {
+    public String array2Json(List list) {
         if (CollectionUtils.isEmpty(list)) {
             return StringUtils.EMPTY;
         }
@@ -36,7 +35,7 @@ public final class TLCProxyJsonUtil {
         return JSONArray.fromObject(list).toString();
     }
 
-    public static Object json2Object(String jsonStr, Class clazz, String... excludePropery) {
+    public Object json2Object(String jsonStr, Class clazz, String... excludePropery) {
         if (StringUtils.isEmpty(jsonStr)) {
             return null;
         }
@@ -66,7 +65,7 @@ public final class TLCProxyJsonUtil {
         return JSONObject.toBean(jsonObject, javaConfig);
     }
 
-    public static String getString(String jsonStr, String key) {
+    public String getString(String jsonStr, String key) {
         if (StringUtils.isEmpty(jsonStr) || StringUtils.isEmpty(key)) {
             return StringUtils.EMPTY;
         }
@@ -75,7 +74,7 @@ public final class TLCProxyJsonUtil {
         return jsonObject.get(key).toString();
     }
 
-    public static List json2Array(String jsonStr, String key, Class clazz, String... excludeProperty) {
+    public List json2Array(String jsonStr, String key, Class clazz, String... excludeProperty) {
         if (StringUtils.isEmpty(jsonStr) || StringUtils.isEmpty(key)) {
             return Collections.EMPTY_LIST;
         }
@@ -93,7 +92,7 @@ public final class TLCProxyJsonUtil {
         return objectList;
     }
 
-    public static List json2Array(String jsonStr, Class clazz) {
+    public List json2Array(String jsonStr, Class clazz) {
         if (StringUtils.isEmpty(jsonStr)) {
             return Collections.EMPTY_LIST;
         }

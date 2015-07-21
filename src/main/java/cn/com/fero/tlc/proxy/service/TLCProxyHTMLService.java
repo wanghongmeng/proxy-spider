@@ -1,9 +1,10 @@
-package cn.com.fero.tlc.proxy.http;
+package cn.com.fero.tlc.proxy.service;
 
-import cn.com.fero.tlc.proxy.common.TLCProxyProxyException;
+import cn.com.fero.tlc.proxy.exception.TLCProxyProxyException;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,10 @@ import java.util.List;
 /**
  * Created by gizmo on 15/6/18.
  */
-public class TLCProxyHTMLParser {
+@Service
+public class TLCProxyHTMLService {
 
-    public static List<TagNode> parseNode(String content, String xpath) {
+    public List<TagNode> parseNode(String content, String xpath) {
         try {
             HtmlCleaner htmlCleaner = new HtmlCleaner();
             TagNode html = htmlCleaner.clean(content);
@@ -30,7 +32,7 @@ public class TLCProxyHTMLParser {
         }
     }
 
-    public static String parseText(String content, String xpath) {
+    public String parseText(String content, String xpath) {
         try {
             HtmlCleaner htmlCleaner = new HtmlCleaner();
             TagNode html = htmlCleaner.clean(content);
@@ -46,7 +48,7 @@ public class TLCProxyHTMLParser {
         }
     }
 
-    public static String parseText(TagNode tagNode, String xpath) {
+    public String parseText(TagNode tagNode, String xpath) {
         try {
             Object[] children = tagNode.evaluateXPath(xpath);
             if (null == children || children.length <= 0) {
@@ -61,7 +63,7 @@ public class TLCProxyHTMLParser {
     }
 
 
-    public static String parseAttribute(String content, String xpath, String attribute) {
+    public String parseAttribute(String content, String xpath, String attribute) {
         try {
             HtmlCleaner htmlCleaner = new HtmlCleaner();
             TagNode html = htmlCleaner.clean(content);
@@ -77,7 +79,7 @@ public class TLCProxyHTMLParser {
         }
     }
 
-    public static String parseAttribute(TagNode tagNode, String xpath, String attribute) {
+    public String parseAttribute(TagNode tagNode, String xpath, String attribute) {
         try {
             Object[] children = tagNode.evaluateXPath(xpath);
             if (null == children || children.length <= 0) {
@@ -91,7 +93,7 @@ public class TLCProxyHTMLParser {
         }
     }
 
-    public static String parseAttribute(TagNode tagNode, String attribute) {
+    public String parseAttribute(TagNode tagNode, String attribute) {
         try {
             return tagNode.getAttributeByName(attribute).trim();
         } catch (Exception e) {

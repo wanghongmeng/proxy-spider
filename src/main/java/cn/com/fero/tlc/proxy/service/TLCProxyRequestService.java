@@ -1,4 +1,4 @@
-package cn.com.fero.tlc.proxy.http;
+package cn.com.fero.tlc.proxy.service;
 
 import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
 import org.apache.commons.collections4.MapUtils;
@@ -17,6 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.CharsetUtils;
 import org.apache.http.util.EntityUtils;
+import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -27,9 +28,10 @@ import java.util.Map;
 /**
  * Created by gizmo on 15/6/18.
  */
-public class TLCProxyRequest {
+@Service
+public class TLCProxyRequestService {
 
-    public static Map<String, Object> get(String url) {
+    public Map<String, Object> get(String url) {
         if (StringUtils.isEmpty(url)) {
             throw new IllegalArgumentException();
         }
@@ -44,7 +46,7 @@ public class TLCProxyRequest {
         return executeRequest(httpClient, httpGet);
     }
 
-    public static Map<String, Object> getViaProxy(String url, String ip, int port) {
+    public Map<String, Object> getViaProxy(String url, String ip, int port) {
         if (StringUtils.isEmpty(url)) {
             throw new IllegalArgumentException();
         }
@@ -60,7 +62,7 @@ public class TLCProxyRequest {
     }
 
 
-    public static Map<String, Object> postViaProxy(String url, Map<String, String> param, String ip, int port) throws UnsupportedEncodingException {
+    public Map<String, Object> postViaProxy(String url, Map<String, String> param, String ip, int port) throws UnsupportedEncodingException {
         if (StringUtils.isEmpty(url) || MapUtils.isEmpty(param)) {
             throw new IllegalArgumentException();
         }
@@ -82,7 +84,7 @@ public class TLCProxyRequest {
         return executeRequest(httpClient, httpPost);
     }
 
-    private static Map<String, Object> executeRequest(CloseableHttpClient httpClient, HttpUriRequest request) {
+    private Map<String, Object> executeRequest(CloseableHttpClient httpClient, HttpUriRequest request) {
         Map<String, Object> responseMap = new HashMap();
         try {
             CloseableHttpResponse response = httpClient.execute(request);

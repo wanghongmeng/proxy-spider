@@ -1,10 +1,12 @@
 package cn.com.fero.tlc.proxy.controller;
 
 import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
-import cn.com.fero.tlc.proxy.logger.TLCProxyLogger;
+import cn.com.fero.tlc.proxy.service.TLCProxyLoggerService;
+import cn.com.fero.tlc.proxy.service.TLCProxyMailService;
 import cn.com.fero.tlc.proxy.vo.ResponseValue;
 import cn.com.fero.tlc.proxy.vo.TLCProxy;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +22,10 @@ public class TLCProxyController {
     private Queue<String> httpProxy;
     @Resource
     private Queue<String> httpsProxy;
+    @Autowired
+    private TLCProxyLoggerService tlcProxyLoggerService;
+    @Autowired
+    private TLCProxyMailService tlcProxyMailService;
 
     @RequestMapping(value = "/proxy/http")
     public ResponseValue getHttpProxy() {
@@ -30,7 +36,8 @@ public class TLCProxyController {
 
             return constructSuccessResponse(httpProxy.peek());
         } catch (Exception e) {
-            TLCProxyLogger.getLogger().error(ExceptionUtils.getFullStackTrace(e));
+            tlcProxyLoggerService.getLogger().error(ExceptionUtils.getFullStackTrace(e));
+            tlcProxyMailService.sendErrorMail(ExceptionUtils.getFullStackTrace(e));
             return constructErrorResponse();
         }
     }
@@ -44,7 +51,8 @@ public class TLCProxyController {
 
             return constructSuccessResponse(httpsProxy.peek());
         } catch (Exception e) {
-            TLCProxyLogger.getLogger().error(ExceptionUtils.getFullStackTrace(e));
+            tlcProxyLoggerService.getLogger().error(ExceptionUtils.getFullStackTrace(e));
+            tlcProxyMailService.sendErrorMail(ExceptionUtils.getFullStackTrace(e));
             return constructErrorResponse();
         }
     }

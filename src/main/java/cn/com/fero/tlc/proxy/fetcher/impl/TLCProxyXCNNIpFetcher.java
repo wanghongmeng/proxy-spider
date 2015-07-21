@@ -1,11 +1,8 @@
 package cn.com.fero.tlc.proxy.fetcher.impl;
 
 import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
-import cn.com.fero.tlc.proxy.common.TLCProxyProxyException;
+import cn.com.fero.tlc.proxy.exception.TLCProxyProxyException;
 import cn.com.fero.tlc.proxy.fetcher.TLCProxyIpFetcher;
-import cn.com.fero.tlc.proxy.http.TLCProxyHTMLParser;
-import cn.com.fero.tlc.proxy.http.TLCProxyRequest;
-import cn.com.fero.tlc.proxy.logger.TLCProxyLogger;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,17 +21,17 @@ public class TLCProxyXCNNIpFetcher extends TLCProxyIpFetcher {
     @Override
     public Map<String, TLCProxyConstants.PROXY_TYPE> doFetch() {
         try {
-            TLCProxyLogger.getLogger().info("开始抓取西刺国内高匿代理");
+            tlcProxyLoggerService.getLogger().info("开始抓取西刺国内高匿代理");
             Map<String, TLCProxyConstants.PROXY_TYPE> ipMap = new HashMap();
 
-            String content = TLCProxyRequest.get(fetchUrl)
+            String content = tlcProxyRequestService.get(fetchUrl)
                     .get(TLCProxyConstants.SPIDER_CONST_RESPONSE_CONTENT).toString();
-            List<TagNode> ipNodeList = TLCProxyHTMLParser.parseNode(content, "//table[@id='ip_list']/tbody/tr");
+            List<TagNode> ipNodeList = tlcProxyHTMLService.parseNode(content, "//table[@id='ip_list']/tbody/tr");
 
             for (TagNode ipNode : ipNodeList) {
-                String type = TLCProxyHTMLParser.parseText(ipNode, "td[7]");
-                String ip = TLCProxyHTMLParser.parseText(ipNode, "td[3]");
-                String port = TLCProxyHTMLParser.parseText(ipNode, "td[4]");
+                String type = tlcProxyHTMLService.parseText(ipNode, "td[7]");
+                String ip = tlcProxyHTMLService.parseText(ipNode, "td[3]");
+                String port = tlcProxyHTMLService.parseText(ipNode, "td[4]");
                 if (StringUtils.isEmpty(ip) || StringUtils.isEmpty(port)) {
                     continue;
                 }
@@ -52,7 +49,7 @@ public class TLCProxyXCNNIpFetcher extends TLCProxyIpFetcher {
         } catch (Exception e) {
             throw new TLCProxyProxyException(e);
         } finally {
-            TLCProxyLogger.getLogger().info("抓取西刺国内高匿代理结束");
+            tlcProxyLoggerService.getLogger().info("抓取西刺国内高匿代理结束");
         }
     }
 }

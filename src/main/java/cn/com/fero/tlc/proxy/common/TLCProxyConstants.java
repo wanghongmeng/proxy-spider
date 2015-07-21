@@ -15,7 +15,6 @@ public final class TLCProxyConstants {
     public static final String SPIDER_CONST_RESPONSE_MESSAGE_ERROR = "发生错误";
     public static final int SPIDER_CONST_HTTP_TIMEOUT = 5000;
     public static final int SPIDER_CONST_THREAD_SIZE = 5;
-    public static final int SPIDER_CONST_QUEUE_INIT_SIZE = 1000;
     public static final String SPIDER_CONST_DATE_TIME_FORMAT = "yyyy-MM-ss HH:mm:ss";
 
     private TLCProxyConstants() {

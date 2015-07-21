@@ -37,6 +37,16 @@ tlc:
             test:
                 http: http://ip.taobao.com/service/getIpInfo2.php
                 https: https://www.baidu.com/
+        mail:
+            config:
+                host: smtp.exmail.qq.com
+                username: gtsboss@fero.com.cn
+                password: fero1234
+            subject:
+                error: 钛理财代理错误
+            receiver:
+                error: wanghongmeng@fero.com.cn
+
 ---
 spring:
     profiles: dev

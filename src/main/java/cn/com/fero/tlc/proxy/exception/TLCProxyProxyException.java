@@ -1,4 +1,4 @@
-package cn.com.fero.tlc.proxy.common;
+package cn.com.fero.tlc.proxy.exception;
 
 /**
  * Created by wanghongmeng on 2015/5/13.

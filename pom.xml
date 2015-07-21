@@ -34,6 +34,8 @@
         <java.version>1.7</java.version>
         <tomcat.version>7.0.59</tomcat.version>
         <properties.project.build.sourceEncoding>UTF-8</properties.project.build.sourceEncoding>
+        <property.version.spring>4.0.5.RELEASE</property.version.spring>
+        <property.version.mail>1.4.7</property.version.mail>
         <properties.version.commons-lang3>3.4</properties.version.commons-lang3>
         <properties.version.commons-collections>4.0</properties.version.commons-collections>
         <propertie.version.http-client>4.3.1</propertie.version.http-client>
@@ -57,8 +59,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-integration</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${property.version.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${property.version.mail}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
