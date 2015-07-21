@@ -33,11 +33,16 @@
     <properties>
         <java.version>1.7</java.version>
         <tomcat.version>7.0.59</tomcat.version>
+        <properties.project.build.sourceEncoding>UTF-8</properties.project.build.sourceEncoding>
         <properties.version.commons-lang3>3.4</properties.version.commons-lang3>
+        <properties.version.commons-collections>4.0</properties.version.commons-collections>
         <properties.version.commons-collections>4.0</properties.version.commons-collections>
         <propertie.version.http-client>4.3.1</propertie.version.http-client>
         <properties.version.htmlcleaner>2.2.1</properties.version.htmlcleaner>
         <properties.version.json-lib>2.4</properties.version.json-lib>
+        <properties.version.spring.loaded>1.2.0.RELEASE</properties.version.spring.loaded>
+        <properties.version.plugin.compile>2.5.1</properties.version.plugin.compile>
+        <properties.version.plugin.surefire>2.12.4</properties.version.plugin.surefire>
     </properties>
 
     <dependencies>
@@ -88,8 +93,33 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${properties.version.plugin.compile}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${properties.project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${properties.version.plugin.surefire}</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>${properties.version.spring.loaded}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

@@ -6,7 +6,6 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -92,7 +91,7 @@ public class TLCProxyRequest {
             responseMap.put(TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS, response.getStatusLine().getStatusCode());
             responseMap.put(TLCProxyConstants.SPIDER_CONST_RESPONSE_CONTENT, responseContent);
         } catch (Exception e) {
-            responseMap.put(TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS, TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS_FAIL);
+            responseMap.put(TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS, TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS_ERROR);
             responseMap.put(TLCProxyConstants.SPIDER_CONST_RESPONSE_CONTENT, ExceptionUtils.getFullStackTrace(e));
         }
         return responseMap;

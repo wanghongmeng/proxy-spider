@@ -3,8 +3,6 @@ package cn.com.fero.tlc.proxy.job;
 import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
 import cn.com.fero.tlc.proxy.common.TLCProxyJsonUtil;
 import cn.com.fero.tlc.proxy.http.TLCProxyRequest;
-import cn.com.fero.tlc.proxy.logger.TLCProxyLogger;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -24,14 +22,15 @@ import java.util.Queue;
 @Component
 @EnableScheduling
 public class TLCProxyValidateHttpJob extends TLCProxyJob {
+    private final Map<String, String> param = new HashMap() {{
+        put("ip", "myip");
+    }};
     @Value("${tlc.proxy.url.test.http}")
     private String httpTestUrl;
     @Value("${tlc.proxy.ip.localhost}")
     private String localhost;
     @Resource
     private Queue<String> httpProxy;
-    private final Map<String, String> param = new HashMap(){{put("ip", "myip");}};
-
 
     @Scheduled(cron = "0 */10 * * * ?")
     public void startJob() {

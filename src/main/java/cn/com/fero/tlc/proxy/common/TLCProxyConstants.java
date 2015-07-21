@@ -9,7 +9,10 @@ public final class TLCProxyConstants {
     public static final String SPIDER_CONST_RESPONSE_STATUS = "status";
     public static final String SPIDER_CONST_RESPONSE_CONTENT = "content";
     public static final int SPIDER_CONST_RESPONSE_STATUS_SUCCESS = 200;
-    public static final int SPIDER_CONST_RESPONSE_STATUS_FAIL = 500;
+    public static final int SPIDER_CONST_RESPONSE_STATUS_ERROR = 500;
+    public static final int SPIDER_CONST_RESPONSE_STATUS_NOT_FOUND = 404;
+    public static final String SPIDER_CONST_RESPONSE_MESSAGE_NOT_FOUND = "没有数据";
+    public static final String SPIDER_CONST_RESPONSE_MESSAGE_ERROR = "发生错误";
     public static final int SPIDER_CONST_HTTP_TIMEOUT = 5000;
     public static final int SPIDER_CONST_THREAD_SIZE = 5;
     public static final int SPIDER_CONST_QUEUE_INIT_SIZE = 1000;

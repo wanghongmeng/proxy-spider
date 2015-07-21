@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -21,17 +20,17 @@ public abstract class TLCProxyJob {
     @Resource
     protected Queue<String> httpsFetchQueue;
 
-    public void execute(TLCProxyJobExecutor executor){
-        try{
+    public void execute(TLCProxyJobExecutor executor) {
+        try {
             executor.doExecute();
-        }catch(Exception e) {
+        } catch (Exception e) {
             TLCProxyLogger.getLogger().error(ExceptionUtils.getFullStackTrace(e));
         }
     }
 
     protected void populateProxy(Queue<String> fetchQueue, Queue<String> proxy, TLCProxyConstants.PROXY_TYPE proxyType) {
         if (fetchQueue.isEmpty()) {
-            TLCProxyLogger.getLogger().info("{}代理队列为空", proxyType.toString());
+            TLCProxyLogger.getLogger().info("{}抓取队列为空", proxyType.toString());
         } else {
             String ele;
             while ((ele = fetchQueue.poll()) != null) {
@@ -42,7 +41,7 @@ public abstract class TLCProxyJob {
 
     protected void validateProxy(Queue<String> proxy, TLCProxyConstants.PROXY_TYPE proxyType, TLCProxyJobValidator validator) throws Exception {
         Iterator<String> proxyIterator = proxy.iterator();
-        while(proxyIterator.hasNext()) {
+        while (proxyIterator.hasNext()) {
             String ele = proxyIterator.next();
             TLCProxyLogger.getLogger().info("验证{}代理: {}", proxyType.toString(), ele);
 
@@ -59,11 +58,11 @@ public abstract class TLCProxyJob {
         }
     }
 
-    interface TLCProxyJobExecutor{
+    interface TLCProxyJobExecutor {
         public void doExecute() throws Exception;
     }
 
-    interface TLCProxyJobValidator{
+    interface TLCProxyJobValidator {
         public boolean doValidate(String ip, String port) throws Exception;
     }
 }

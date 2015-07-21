@@ -17,14 +17,14 @@ public class TLCProxyQueueTest extends TLCProxyTest {
     @Test
     public void testQueue() throws UnsupportedEncodingException {
         Queue<Integer> queue = new LinkedList();
-        for(int a = 1; a <= 10; a++) {
+        for (int a = 1; a <= 10; a++) {
             queue.add(a);
         }
 
         Iterator<Integer> iterator = queue.iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             int num = iterator.next();
-            if(num % 3 == 0) {
+            if (num % 3 == 0) {
                 iterator.remove();
             } else {
                 System.out.println(num);
