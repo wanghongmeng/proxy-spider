@@ -45,7 +45,7 @@ tlc:
             subject:
                 error: 钛理财代理错误
             receiver:
-                error: wanghongmeng@fero.com.cn
+                error: wanghongmeng@fero.com.cn, shaolichao@fero.com.cn
 
 ---
 spring:
