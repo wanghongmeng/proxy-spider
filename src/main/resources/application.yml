@@ -6,9 +6,9 @@ spring:
         show_banner: false
     http:
         encoding:
-        charset: UTF-8
-        enabled: true
-        force: true
+            charset: UTF-8
+            enabled: true
+            force: true
         gzip:
             enabled: true
 server:
@@ -52,8 +52,6 @@ spring:
     profiles: dev
 logging:
     config: classpath:logback-dev.xml
-management:
-    address: 127.0.0.1
 tlc:
     proxy:
         ip:
@@ -63,8 +61,6 @@ spring:
     profiles: test
 logging:
     config: classpath:logback-test.xml
-management:
-    address: 192.168.0.17
 tlc:
     proxy:
         ip:
@@ -74,8 +70,6 @@ spring:
     profiles: prod
 logging:
     config: classpath:logback-prod.xml
-management:
-    address: 192.168.0.17
 tlc:
     proxy:
         ip:
