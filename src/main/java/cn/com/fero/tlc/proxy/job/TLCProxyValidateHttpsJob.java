@@ -2,29 +2,29 @@ package cn.com.fero.tlc.proxy.job;
 
 import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
 import cn.com.fero.tlc.proxy.http.TLCProxyRequest;
-import cn.com.fero.tlc.proxy.logger.TLCProxyLogger;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Map;
-import java.util.Set;
+import java.util.Queue;
 
 /**
  * Created by wanghongmeng on 2015/7/15.
  */
 @Component
-//@EnableScheduling
+@EnableScheduling
 public class TLCProxyValidateHttpsJob extends TLCProxyJob {
     @Value("${tlc.proxy.url.test.https}")
     private String httpsTestUrl;
     @Resource
-    private Set<String> httpsProxy;
+    private Queue<String> httpsProxy;
 
-//    @Scheduled(cron = "0/10 * * * * *")
+    @Scheduled(cron = "0 */10 * * * ?")
     public void startJob() {
         execute(new TLCProxyJobExecutor() {
             @Override

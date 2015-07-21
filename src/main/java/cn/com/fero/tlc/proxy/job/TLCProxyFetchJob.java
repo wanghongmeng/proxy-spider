@@ -25,7 +25,7 @@ public class TLCProxyFetchJob extends TLCProxyJob {
     @Autowired
     private List<TLCProxyIpFetcher> fetchers;
 
-    @Scheduled(cron = "0 */1 * * * *")
+    @Scheduled(cron = "0 0 */1 * * ?")
     public void startJob() {
         execute(new TLCProxyJobExecutor() {
             @Override
@@ -40,10 +40,10 @@ public class TLCProxyFetchJob extends TLCProxyJob {
 
                                 for (Map.Entry<String, TLCProxyConstants.PROXY_TYPE> entry : ipMap.entrySet()) {
                                     if (entry.getValue() == TLCProxyConstants.PROXY_TYPE.HTTP) {
-                                        httpFetchQueue.put(entry.getKey());
+                                        httpFetchQueue.add(entry.getKey());
                                     }
                                     if (entry.getValue() == TLCProxyConstants.PROXY_TYPE.HTTPS) {
-                                        httpsFetchQueue.put(entry.getKey());
+                                        httpsFetchQueue.add(entry.getKey());
                                     }
                                 }
                             } catch (Exception e) {

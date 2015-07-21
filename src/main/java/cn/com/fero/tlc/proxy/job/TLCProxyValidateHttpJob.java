@@ -14,10 +14,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+import java.util.Queue;
 
 /**
  * Created by wanghongmeng on 2015/7/15.
@@ -30,11 +29,11 @@ public class TLCProxyValidateHttpJob extends TLCProxyJob {
     @Value("${tlc.proxy.ip.localhost}")
     private String localhost;
     @Resource
-    private Set<String> httpProxy;
+    private Queue<String> httpProxy;
     private final Map<String, String> param = new HashMap(){{put("ip", "myip");}};
 
 
-    @Scheduled(cron = "0/10 * * * * *")
+    @Scheduled(cron = "0 */10 * * * ?")
     public void startJob() {
         execute(new TLCProxyJobExecutor() {
             @Override
