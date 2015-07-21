@@ -15,11 +15,17 @@ import java.util.Map;
 public class TLCProxyHttpTest extends TLCProxyTest {
 
     @Test
-    public void testProxy() throws UnsupportedEncodingException {
+    public void testHttp() throws UnsupportedEncodingException {
         Map<String, String> param = new HashMap() {{
             put("ip", "myip");
         }};
-        Map response = TLCProxyRequest.postViaProxy("http://ip.taobao.com/service/getIpInfo2.php", param, "61.138.78.69", 8080);
+        Map response = TLCProxyRequest.postViaProxy("http://ip.taobao.com/service/getIpInfo2.php", param, "183.69.138.147", 80);
+        System.out.println(response);
+    }
+
+    @Test
+    public void testHttps() throws UnsupportedEncodingException {
+        Map response = TLCProxyRequest.getViaProxy("https://www.baidu.com", "110.25.23.251", 8123);
         System.out.println(response);
     }
 }
