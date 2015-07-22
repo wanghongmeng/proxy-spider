@@ -1,10 +1,8 @@
 package cn.com.fero.tlc.proxy.http.test;
 
-import cn.com.fero.tlc.proxy.TCLProxyServer;
 import cn.com.fero.tlc.proxy.service.TLCProxyMailService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 
 
 /**
