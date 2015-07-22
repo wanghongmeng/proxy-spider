@@ -7,17 +7,23 @@ import cn.com.fero.tlc.proxy.service.TLCProxyRequestService;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Iterator;
 import java.util.Queue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by wanghongmeng on 2015/7/15.
  */
-@Component
-public abstract class TLCProxyJob {
+public abstract class TLCProxyJob implements SchedulingConfigurer {
     @Resource
     protected Queue<String> httpFetchQueue;
     @Resource
@@ -28,7 +34,13 @@ public abstract class TLCProxyJob {
     protected TLCProxyLoggerService tlcProxyLoggerService;
     @Autowired
     protected TLCProxyRequestService tlcProxyRequestService;
+    @Autowired
+    protected Executor schedulePool;
 
+    @Override
+    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+        taskRegistrar.setScheduler(schedulePool);
+    }
 
     public void execute(TLCProxyJobExecutor executor) {
         try {
@@ -40,7 +52,7 @@ public abstract class TLCProxyJob {
 
     protected void populateProxy(Queue<String> fetchQueue, Queue<String> proxy, TLCProxyConstants.PROXY_TYPE proxyType) {
         if (fetchQueue.isEmpty()) {
-            tlcProxyLoggerService.getLogger().info("{}抓取队列为空", proxyType.toString());
+            tlcProxyLoggerService.getLogger().info("{}抓取队列为空，无新添加{}代理", proxyType.toString(), proxyType.toString());
         } else {
             String ele;
             while ((ele = fetchQueue.poll()) != null) {

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -83,8 +84,13 @@ public class TLCProxyConfiguration {
     }
 
     @Bean
-    public ExecutorService threadPool() {
+    public Executor threadPool() {
         return Executors.newFixedThreadPool(TLCProxyConstants.SPIDER_CONST_THREAD_SIZE);
+    }
+
+    @Bean
+    public Executor schedulePool() {
+        return Executors.newScheduledThreadPool(TLCProxyConstants.SPIDER_CONST_THREAD_SIZE);
     }
 
     @Bean
