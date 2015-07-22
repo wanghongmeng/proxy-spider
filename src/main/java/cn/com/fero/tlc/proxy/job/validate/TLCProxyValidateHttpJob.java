@@ -30,7 +30,7 @@ public class TLCProxyValidateHttpJob extends TLCProxyJob {
     @Resource
     private Queue<String> httpProxy;
 
-    @Scheduled(cron = "0 */10 * * * ?")
+    @Scheduled(cron = TLCProxyConstants.SPIDER_CONST_CRON_EXPRESSION_VALIDATION)
     @Override
     public void execute() {
         populateProxy(httpFetchQueue, httpProxy, TLCProxyConstants.PROXY_TYPE.HTTP);

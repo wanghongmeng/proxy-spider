@@ -1,5 +1,6 @@
 package cn.com.fero.tlc.proxy.job.fetch;
 
+import cn.com.fero.tlc.proxy.common.TLCProxyConstants;
 import cn.com.fero.tlc.proxy.job.TLCProxyJob;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -15,7 +16,7 @@ public class TLCProxyXCNNFetchJob extends TLCProxyJob {
     @Value("${tlc.proxy.url.fetch.xcnn}")
     private String fetchUrl;
 
-    @Scheduled(cron = "0 0 */1 * * ?")
+    @Scheduled(cron = TLCProxyConstants.SPIDER_CONST_CRON_EXPRESSION_FETCH)
     @Override
     public void execute() {
         tlcProxyLoggerService.getLogger().info("开始抓取西刺国内高匿代理");

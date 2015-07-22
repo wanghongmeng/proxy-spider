@@ -19,7 +19,7 @@ public class TLCProxyKDLFetchJob extends TLCProxyJob {
     @Value("${tlc.proxy.url.fetch.kdl}")
     private String fetchUrl;
 
-    @Scheduled(cron = "0 0 */1 * * ?")
+    @Scheduled(cron = TLCProxyConstants.SPIDER_CONST_CRON_EXPRESSION_FETCH)
     @Override
     public void execute() {
         String totalPage = getTotalPage(fetchUrl);
