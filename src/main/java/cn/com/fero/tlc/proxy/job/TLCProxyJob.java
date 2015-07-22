@@ -62,10 +62,14 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
 
                 String ipStr = ip + TLCProxyConstants.SPIDER_CONST_COLON + port;
                 if (StringUtils.containsIgnoreCase(type, TLCProxyConstants.PROXY_TYPE.HTTP.toString())) {
-                    httpFetchQueue.add(ipStr);
+                    if(!httpFetchQueue.contains(ipStr)) {
+                        httpFetchQueue.add(ipStr);
+                    }
                 }
                 if (StringUtils.containsIgnoreCase(type, TLCProxyConstants.PROXY_TYPE.HTTPS.toString())) {
-                    httpsFetchQueue.add(ipStr);
+                    if(!httpsFetchQueue.contains(ipStr)) {
+                        httpsFetchQueue.add(ipStr);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -80,7 +84,9 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
             } else {
                 String ele;
                 while ((ele = fetchQueue.poll()) != null) {
-                    proxy.add(ele);
+                    if(!proxy.contains(ele)) {
+                        proxy.add(ele);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -107,6 +113,7 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
                     tlcProxyLoggerService.getLogger().info("{}代理{}可用", proxyType.toString(), ele);
                 }
             }
+            tlcProxyLoggerService.getLogger().info("{}当前可用代理数: {}", proxyType.toString(), proxy.size());
         } catch (NumberFormatException e) {
             throw new TLCProxyProxyException(e);
         }

@@ -19,14 +19,19 @@ public class TLCProxyQueueTest extends TLCProxyTest {
             queue.add(a);
         }
 
-        Iterator<Integer> iterator = queue.iterator();
-        while (iterator.hasNext()) {
-            int num = iterator.next();
-            if (num % 3 == 0) {
-                iterator.remove();
-            } else {
-                System.out.println(num);
-            }
+//        Iterator<Integer> iterator = queue.iterator();
+//        while (iterator.hasNext()) {
+//            int num = iterator.next();
+//            if (num % 3 == 0) {
+//                iterator.remove();
+//            } else {
+//                System.out.println(num);
+//            }
+//        }
+        if(queue.contains(11)) {
+            System.out.println("right");
+        } else {
+            System.out.println("wrong");
         }
     }
 }
