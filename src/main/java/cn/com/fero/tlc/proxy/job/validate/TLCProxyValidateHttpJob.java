@@ -22,6 +22,7 @@ public class TLCProxyValidateHttpJob extends TLCProxyJob {
     private final Map<String, String> param = new HashMap() {{
         put("ip", "myip");
     }};
+
     @Value("${tlc.proxy.url.test.http}")
     private String httpTestUrl;
     @Value("${tlc.proxy.ip.localhost}")

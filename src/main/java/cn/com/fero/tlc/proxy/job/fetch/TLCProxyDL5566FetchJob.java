@@ -16,6 +16,7 @@ public class TLCProxyDL5566FetchJob extends TLCProxyJob {
     private String fetchUrl;
 
     @Scheduled(cron = "0 0 */1 * * ?")
+    @Override
     public void execute() {
         tlcProxyLoggerService.getLogger().info("开始抓取代理5566国内高匿代理");
         String nodePath = "//div[@id='list']//table[@class='table table-bordered table-striped']/tbody/tr";

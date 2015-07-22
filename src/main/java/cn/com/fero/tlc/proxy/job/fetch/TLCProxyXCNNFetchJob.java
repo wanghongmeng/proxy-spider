@@ -16,6 +16,7 @@ public class TLCProxyXCNNFetchJob extends TLCProxyJob {
     private String fetchUrl;
 
     @Scheduled(cron = "0 0 */1 * * ?")
+    @Override
     public void execute() {
         tlcProxyLoggerService.getLogger().info("开始抓取西刺国内高匿代理");
         String nodePath = "//table[@id='ip_list']/tbody/tr";

@@ -20,6 +20,7 @@ public class TLCProxyKDLFetchJob extends TLCProxyJob {
     private String fetchUrl;
 
     @Scheduled(cron = "0 0 */1 * * ?")
+    @Override
     public void execute() {
         String totalPage = getTotalPage(fetchUrl);
         tlcProxyLoggerService.getLogger().info("抓取快代理，总页数:" + totalPage);

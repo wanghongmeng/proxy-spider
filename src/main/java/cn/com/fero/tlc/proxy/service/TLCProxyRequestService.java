@@ -46,9 +46,8 @@ public class TLCProxyRequestService {
             RequestConfig config = constructProxyConfig(ip, port);
             return executeGetRequest(url, config);
         } catch (Exception e) {
-            tlcProxyLoggerService.getLogger().error(ExceptionUtils.getFullStackTrace(e));
-            tlcProxyLoggerService.getLogger().error("使用代理发生异常，去除代理重新请求");
-            return get(url);
+            tlcProxyLoggerService.getLogger().error("使用代理发生异常");
+            return constructErrorResponse(ExceptionUtils.getFullStackTrace(e));
         }
     }
 
@@ -74,9 +73,8 @@ public class TLCProxyRequestService {
             RequestConfig config = constructProxyConfig(ip, port);
             return executePostRequest(url, param, config);
         } catch (Exception e) {
-            tlcProxyLoggerService.getLogger().error(ExceptionUtils.getFullStackTrace(e));
-            tlcProxyLoggerService.getLogger().error("使用代理发生异常，去除代理重新请求");
-            return post(url, param);
+            tlcProxyLoggerService.getLogger().error("使用代理发生异常");
+            return constructErrorResponse(ExceptionUtils.getFullStackTrace(e));
         }
     }
 
@@ -137,6 +135,13 @@ public class TLCProxyRequestService {
         Map<String, Object> responseMap = new HashMap();
         responseMap.put(TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS, response.getStatusLine().getStatusCode());
         responseMap.put(TLCProxyConstants.SPIDER_CONST_RESPONSE_CONTENT, EntityUtils.toString(response.getEntity(), TLCProxyConstants.SPIDER_CONST_CHARACTER_ENCODING));
+        return responseMap;
+    }
+
+    private Map<String, Object> constructErrorResponse(String errorMessage) {
+        Map<String, Object> responseMap = new HashMap();
+        responseMap.put(TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS, TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS_ERROR);
+        responseMap.put(TLCProxyConstants.SPIDER_CONST_RESPONSE_CONTENT, errorMessage);
         return responseMap;
     }
 }
