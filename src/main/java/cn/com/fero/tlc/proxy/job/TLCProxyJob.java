@@ -62,12 +62,12 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
 
                 String ipStr = ip + TLCProxyConstants.SPIDER_CONST_COLON + port;
                 if (StringUtils.containsIgnoreCase(type, TLCProxyConstants.PROXY_TYPE.HTTP.toString())) {
-                    if(!httpFetchQueue.contains(ipStr)) {
+                    if (!httpFetchQueue.contains(ipStr)) {
                         httpFetchQueue.add(ipStr);
                     }
                 }
                 if (StringUtils.containsIgnoreCase(type, TLCProxyConstants.PROXY_TYPE.HTTPS.toString())) {
-                    if(!httpsFetchQueue.contains(ipStr)) {
+                    if (!httpsFetchQueue.contains(ipStr)) {
                         httpsFetchQueue.add(ipStr);
                     }
                 }
@@ -84,7 +84,7 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
             } else {
                 String ele;
                 while ((ele = fetchQueue.poll()) != null) {
-                    if(!proxy.contains(ele)) {
+                    if (!proxy.contains(ele)) {
                         proxy.add(ele);
                     }
                 }

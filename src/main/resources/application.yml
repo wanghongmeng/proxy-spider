@@ -17,6 +17,7 @@ server:
         compression: on
         compressable-mime-types: text/html,text/plain,application/json
         uri-encoding: UTF-8
+        maxHttpHeaderSize: 16384
 management:
     port: 9091
     context-path: /actuator

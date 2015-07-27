@@ -92,19 +92,21 @@ public class TLCProxyRequestService {
     }
 
     private Map<String, Object> executeGetRequest(String url, RequestConfig config) throws IOException {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpClient httpClient = HttpClients.custom().setUserAgent(TLCProxyConstants.SPIDER_CONST_USER_AGETN)
+                .setDefaultRequestConfig(config).build();
         HttpGet httpGet = new HttpGet(url);
-        return executeRequest(httpClient, httpGet, config);
+        return executeRequest(httpClient, httpGet);
     }
 
     private Map<String, Object> executePostRequest(String url, Map<String, String> param, RequestConfig config) throws IOException {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpClient httpClient = HttpClients.custom().setUserAgent(TLCProxyConstants.SPIDER_CONST_USER_AGETN)
+                .setDefaultRequestConfig(config).build();
         HttpPost httpPost = new HttpPost(url);
 
         HttpEntity entity = constructPostEntity(param);
         httpPost.setEntity(entity);
 
-        return executeRequest(httpClient, httpPost, config);
+        return executeRequest(httpClient, httpPost);
     }
 
     private HttpEntity constructPostEntity(Map<String, String> param) throws UnsupportedEncodingException {
@@ -128,8 +130,7 @@ public class TLCProxyRequestService {
         return builder.build();
     }
 
-    private Map<String, Object> executeRequest(CloseableHttpClient httpClient, HttpRequestBase request, RequestConfig config) throws IOException {
-        request.setConfig(config);
+    private Map<String, Object> executeRequest(CloseableHttpClient httpClient, HttpRequestBase request) throws IOException {
         CloseableHttpResponse response = httpClient.execute(request);
 
         Map<String, Object> responseMap = new HashMap();

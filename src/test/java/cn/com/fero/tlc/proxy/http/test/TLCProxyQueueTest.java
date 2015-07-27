@@ -3,7 +3,6 @@ package cn.com.fero.tlc.proxy.http.test;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -28,7 +27,7 @@ public class TLCProxyQueueTest extends TLCProxyTest {
 //                System.out.println(num);
 //            }
 //        }
-        if(queue.contains(11)) {
+        if (queue.contains(11)) {
             System.out.println("right");
         } else {
             System.out.println("wrong");
