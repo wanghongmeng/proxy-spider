@@ -6,12 +6,13 @@ import cn.com.fero.tlc.proxy.service.TLCProxyMailService;
 import cn.com.fero.tlc.proxy.vo.ResponseValue;
 import cn.com.fero.tlc.proxy.vo.TLCProxy;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Queue;
+import java.util.List;
 
 /**
  * Created by wanghongmeng on 2015/7/17.
@@ -19,9 +20,9 @@ import java.util.Queue;
 @RestController
 public class TLCProxyController {
     @Resource
-    private Queue<String> httpProxy;
+    private List<String> httpProxy;
     @Resource
-    private Queue<String> httpsProxy;
+    private List<String> httpsProxy;
     @Autowired
     private TLCProxyLoggerService tlcProxyLoggerService;
     @Autowired
@@ -34,7 +35,8 @@ public class TLCProxyController {
                 return constructNotFoundResponse();
             }
 
-            return constructSuccessResponse(httpProxy.peek());
+            int random = RandomUtils.nextInt(httpProxy.size());
+            return constructSuccessResponse(httpProxy.get(random));
         } catch (Exception e) {
             tlcProxyLoggerService.getLogger().error(ExceptionUtils.getFullStackTrace(e));
             tlcProxyMailService.sendErrorMail(ExceptionUtils.getFullStackTrace(e));
@@ -49,7 +51,8 @@ public class TLCProxyController {
                 return constructNotFoundResponse();
             }
 
-            return constructSuccessResponse(httpsProxy.peek());
+            int random = RandomUtils.nextInt(httpsProxy.size());
+            return constructSuccessResponse(httpsProxy.get(random));
         } catch (Exception e) {
             tlcProxyLoggerService.getLogger().error(ExceptionUtils.getFullStackTrace(e));
             tlcProxyMailService.sendErrorMail(ExceptionUtils.getFullStackTrace(e));

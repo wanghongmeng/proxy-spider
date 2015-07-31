@@ -8,8 +8,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -36,18 +35,23 @@ public class TLCProxyConfiguration {
     }
 
     @Bean
-    public Queue<String> httpProxy() {
-        return new LinkedList();
+    public List<String> httpProxy() {
+        return Collections.synchronizedList(new ArrayList());
     }
 
     @Bean
-    public Queue<String> httpsProxy() {
-        return new LinkedList();
+    public List<String> httpsProxy() {
+        return Collections.synchronizedList(new ArrayList());
     }
 
     @Bean
     public Executor schedulePool() {
-        return Executors.newScheduledThreadPool(TLCProxyConstants.SPIDER_CONST_THREAD_SIZE);
+        return Executors.newScheduledThreadPool(TLCProxyConstants.SPIDER_CONST_SCHEDULE_POOL_SIZE);
+    }
+
+    @Bean
+    public Executor threadPool() {
+        return Executors.newFixedThreadPool(TLCProxyConstants.SPIDER_CONST_THREAD_POOL_SIZE);
     }
 
     @Bean

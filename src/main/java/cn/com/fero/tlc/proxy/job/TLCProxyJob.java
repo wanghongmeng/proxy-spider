@@ -14,7 +14,6 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 import javax.annotation.Resource;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Executor;
@@ -37,6 +36,8 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
     protected TLCProxyHTMLService tlcProxyHTMLService;
     @Autowired
     protected Executor schedulePool;
+    @Autowired
+    protected Executor threadPool;
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
@@ -77,7 +78,7 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
         }
     }
 
-    protected void populateProxy(Queue<String> fetchQueue, Queue<String> proxy, TLCProxyConstants.PROXY_TYPE proxyType) {
+    protected void populateProxy(Queue<String> fetchQueue, List<String> proxy, TLCProxyConstants.PROXY_TYPE proxyType) {
         try {
             if (fetchQueue.isEmpty()) {
                 tlcProxyLoggerService.getLogger().info("{}抓取队列为空，无新添加{}代理", proxyType.toString(), proxyType.toString());
@@ -94,24 +95,26 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
         }
     }
 
-    protected void validateProxy(Queue<String> proxy, TLCProxyConstants.PROXY_TYPE proxyType, TLCProxyJobValidator validator) {
+    protected void validateProxy(final List<String> proxy, final TLCProxyConstants.PROXY_TYPE proxyType, final TLCProxyJobValidator validator) {
         try {
-            Iterator<String> proxyIterator = proxy.iterator();
-            while (proxyIterator.hasNext()) {
-                String ele = proxyIterator.next();
-                tlcProxyLoggerService.getLogger().info("验证{}代理: {}", proxyType.toString(), ele);
-
-                String[] ipAddressArray = ele.split(TLCProxyConstants.SPIDER_CONST_COLON);
-                String ip = ipAddressArray[0];
+            for (final String proxyStr : proxy) {
+                String[] ipAddressArray = proxyStr.split(TLCProxyConstants.SPIDER_CONST_COLON);
+                final String ip = ipAddressArray[0];
                 String port = ipAddressArray[1];
-                Integer portNum = Integer.parseInt(port);
+                final Integer portNum = Integer.parseInt(port);
 
-                if (BooleanUtils.isFalse(validator.doValidate(ip, portNum))) {
-                    tlcProxyLoggerService.getLogger().info("{}代理不可用，删除代理： {}", proxyType.toString(), ele);
-                    proxyIterator.remove();
-                } else {
-                    tlcProxyLoggerService.getLogger().info("{}代理{}可用", proxyType.toString(), ele);
-                }
+                threadPool.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        tlcProxyLoggerService.getLogger().info("验证{}代理: {}", proxyType.toString(), proxyStr);
+                        if (BooleanUtils.isFalse(validator.doValidate(ip, portNum))) {
+                            tlcProxyLoggerService.getLogger().info("{}代理不可用，删除代理： {}", proxyType.toString(), proxyStr);
+                            proxy.remove(proxyStr);
+                        } else {
+                            tlcProxyLoggerService.getLogger().info("{}代理{}可用", proxyType.toString(), proxyStr);
+                        }
+                    }
+                });
             }
             tlcProxyLoggerService.getLogger().info("{}当前可用代理数: {}", proxyType.toString(), proxy.size());
         } catch (NumberFormatException e) {
