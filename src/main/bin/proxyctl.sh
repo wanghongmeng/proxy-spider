@@ -7,7 +7,7 @@ log_path=/opt/logs/job/${pro_name}
 log_name=proxy
 pid=${log_path}/${pro_name}.pid
 java_args="-Dlog_path=${log_path}/${log_name}"
-jvm_args="-Xms1G -Xmx1G -Xmn600M -XX:PermSize=128M -XX:MaxPermSize=128M -XX:+UseFastAccessorMethods -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSParallelRemarkEnabled -XX:MaxTenuringThreshold=20 -XX:CMSFullGCsBeforeCompaction=5 -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=75 -XX:-PrintGC  -XX:-PrintGCTimeStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -Xloggc:${log_path}/gc.log"
+jvm_args="-Xms500M -Xmx500M -Xmn300M -XX:PermSize=64M -XX:MaxPermSize=64M -XX:+UseFastAccessorMethods -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSParallelRemarkEnabled -XX:MaxTenuringThreshold=20 -XX:CMSFullGCsBeforeCompaction=5 -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=75 -XX:-PrintGC  -XX:-PrintGCTimeStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -Xloggc:${log_path}/gc.log"
 
 export JAVA_HOME=/usr/local/jdk1.7.0_79/
 export PATH=$JAVA_HOME/bin:$PATH

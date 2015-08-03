@@ -19,7 +19,7 @@ public final class TLCProxyConstants {
     public static final int SPIDER_CONST_RESPONSE_STATUS_NOT_FOUND = 404;
     public static final int SPIDER_CONST_HTTP_TIMEOUT = 20000;
     public static final int SPIDER_CONST_SCHEDULE_POOL_SIZE = 5;
-    public static final int SPIDER_CONST_THREAD_POOL_SIZE = 20;
+    public static final int SPIDER_CONST_THREAD_POOL_SIZE = 10;
 
     private TLCProxyConstants() {
         throw new UnsupportedOperationException();
