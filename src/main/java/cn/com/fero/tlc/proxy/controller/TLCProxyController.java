@@ -61,6 +61,7 @@ public class TLCProxyController {
     }
 
     private ResponseValue constructNotFoundResponse() {
+        tlcProxyLoggerService.getLogger().info("无可用代理");
         ResponseValue responseValue = new ResponseValue();
         responseValue.setStatus(TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS_NOT_FOUND);
         responseValue.setMessage(TLCProxyConstants.SPIDER_CONST_RESPONSE_MESSAGE_NOT_FOUND);
@@ -68,6 +69,7 @@ public class TLCProxyController {
     }
 
     private ResponseValue constructSuccessResponse(String proxy) {
+        tlcProxyLoggerService.getLogger().info("提供代理: {}", proxy);
         ResponseValue responseValue = new ResponseValue();
         responseValue.setStatus(TLCProxyConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS);
         String[] proxyArray = proxy.split(TLCProxyConstants.SPIDER_CONST_COLON);
