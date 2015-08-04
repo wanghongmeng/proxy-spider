@@ -33,7 +33,7 @@
     <properties>
         <java.version>1.7</java.version>
         <tomcat.version>7.0.59</tomcat.version>
-        <properties.project.build.sourceEncoding>UTF-8</properties.project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <property.version.spring>4.0.5.RELEASE</property.version.spring>
         <property.version.mail>1.4.7</property.version.mail>
         <properties.version.commons-lang3>3.4</properties.version.commons-lang3>
@@ -102,11 +102,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${properties.version.plugin.compile}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${properties.project.build.sourceEncoding}</encoding>
-                </configuration>
+                <!--<configuration>-->
+                    <!--<source>${java.version}</source>-->
+                    <!--<target>${java.version}</target>-->
+                <!--</configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
