@@ -6,7 +6,7 @@ log_name=proxy
 basedir=/opt/webapps/job/${pro_name}
 log_path=/opt/logs/job/${pro_name}
 pid=${log_path}/${pro_name}.pid
-java_args="-Dlog_path=${log_path}/${log_name}"
+#java_args="-Dlog_path=${log_path}/${log_name}"
 jvm_args="-Xms1G -Xmx1G -Xmn600M -XX:PermSize=128M -XX:MaxPermSize=128M -XX:+UseFastAccessorMethods -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSParallelRemarkEnabled -XX:MaxTenuringThreshold=20 -XX:CMSFullGCsBeforeCompaction=5 -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=75 -XX:-PrintGC  -XX:-PrintGCTimeStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -Xloggc:${log_path}/gc.log"
 
 export JAVA_HOME=/usr/local/jdk1.7.0_79/
@@ -19,7 +19,7 @@ if [ ${command}x != "start"x -a ${command}x != "stop"x ];
         echo "usage: proxyctl [start|stop]"
 elif [ ${command}x = "start"x ];
     then
-        nohup java -jar ${basedir}/${pro_name}-1.0.0.jar ${java_args} ${jvm_args} --spring.profiles.active=prod >>/dev/null 2>$1 &
+        nohup java -jar ${basedir}/${pro_name}-1.0.0.jar ${jvm_args} --spring.profiles.active=prod >>/dev/null 2>$1 &
         echo $!>${pid}
 else [ ${command}x = "stop"x ]
         /bin/kill -9 `cat ${pid}`

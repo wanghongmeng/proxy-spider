@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="stdout" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log_path}/proxy.log</file>
+        <file>/opt/logs/job/tlc-proxy/proxy.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log_path}/proxy-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/opt/logs/job/tlc-proxy/proxy-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
