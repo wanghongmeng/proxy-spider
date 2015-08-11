@@ -17,7 +17,7 @@ server:
         uri-encoding: UTF-8
         max-http-header-size: 16384
         compression:
-            enable: true
+            enabled: true
             mime-types: text/html,text/plain,application/json
 management:
     port: 9091
