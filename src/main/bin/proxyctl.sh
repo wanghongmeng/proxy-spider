@@ -19,7 +19,7 @@ if [ ${command}x != "start"x -a ${command}x != "stop"x ];
         echo "usage: proxyctl [start|stop]"
 elif [ ${command}x = "start"x ];
     then
-        nohup java -jar ${basedir}/${pro_name}-1.0.0.jar ${java_args} ${jvm_args} --spring.profiles.active=prod >/dev/null 2>$1 &
+        nohup java -jar ${basedir}/${pro_name}-1.0.0.jar ${java_args} ${jvm_args} --spring.profiles.active=prod >>/dev/null 2>$1 &
         echo $!>${pid}
 else [ ${command}x = "stop"x ]
         /bin/kill -9 `cat ${pid}`
