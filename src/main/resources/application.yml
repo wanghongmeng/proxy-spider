@@ -14,10 +14,10 @@ spring:
 server:
     port: 9090
     tomcat:
-        compression: on
-        compressable-mime-types: text/html,text/plain,application/json
-        uri-encoding: UTF-8
+        uriEncoding: UTF-8
         maxHttpHeaderSize: 16384
+        compression: on
+        compressableMimeTypes: text/html,text/plain,application/json
 management:
     port: 9091
     context-path: /actuator
