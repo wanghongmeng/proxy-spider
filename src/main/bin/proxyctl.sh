@@ -1,12 +1,13 @@
 #!/bin/bash
 ff=unix
 
-pro_name=tlc-proxy
-basedir=/opt/webapps/job/${pro_name}
-log_path=/opt/logs/job/${pro_name}
-log_name=proxy
-pid=${log_path}/${pro_name}.pid
-java_args="-Dlog_path=${log_path}/${log_name}"
+group_name=tlc
+project_name=tlc-proxy
+basedir=/opt/webapps/job/${project_name}
+log_path=/opt/logs/job/${project_name}
+log_name=stdout
+pid=${log_path}/${project_name}.pid
+java_args="-DgroupName=${group_name} -Dproject_name=${project_name} -DlogPath=${log_path}/${log_name}"
 jvm_args="-Xms500M -Xmx500M -Xmn300M -XX:PermSize=64M -XX:MaxPermSize=64M -XX:+UseFastAccessorMethods -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSParallelRemarkEnabled -XX:MaxTenuringThreshold=20 -XX:CMSFullGCsBeforeCompaction=5 -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=75 -XX:-PrintGC  -XX:-PrintGCTimeStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -Xloggc:${log_path}/gc.log"
 
 export JAVA_HOME=/usr/local/jdk1.7.0_79/
@@ -19,7 +20,7 @@ if [ ${command}x != "start"x -a ${command}x != "stop"x ];
         echo "usage: proxyctl [start|stop]"
 elif [ ${command}x = "start"x ];
     then
-        nohup java ${java_args} ${jvm_args} -jar ${basedir}/${pro_name}-1.0.0.jar --spring.profiles.active=prod >/dev/null 2>$1 &
+        nohup java ${java_args} ${jvm_args} -jar ${basedir}/${project_name}-1.0.0.jar --spring.profiles.active=prod >>${log_path}/${log_name}.log 2>$1 &
         echo $!>${pid}
 else [ ${command}x = "stop"x ]
         /bin/kill -9 `cat ${pid}`
