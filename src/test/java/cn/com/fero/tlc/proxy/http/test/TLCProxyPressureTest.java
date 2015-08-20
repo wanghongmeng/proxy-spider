@@ -21,7 +21,7 @@ public class TLCProxyPressureTest extends TLCProxyTest {
         int total = 100;
         Executor threadPool = Executors.newFixedThreadPool(total);
         final CountDownLatch gate = new CountDownLatch(total);
-        for(int a = 0; a < total; a++) {
+        for (int a = 0; a < total; a++) {
             threadPool.execute(new Runnable() {
                 @Override
                 public void run() {

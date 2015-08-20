@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by wanghongmeng on 2015/7/15.
@@ -20,7 +20,7 @@ public class TLCProxyValidateHttpsJob extends TLCProxyJob {
     @Value("${tlc.proxy.url.test.https}")
     private String httpsTestUrl;
     @Resource
-    private List<String> httpsProxy;
+    private CopyOnWriteArrayList<String> httpsProxy;
 
     @Scheduled(cron = TLCProxyConstants.SPIDER_CONST_CRON_EXPRESSION_VALIDATION)
     @Override

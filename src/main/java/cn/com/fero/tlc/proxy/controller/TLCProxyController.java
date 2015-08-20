@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by wanghongmeng on 2015/7/17.
@@ -20,9 +20,9 @@ import java.util.List;
 @RestController
 public class TLCProxyController {
     @Resource
-    private List<String> httpProxy;
+    private CopyOnWriteArrayList<String> httpProxy;
     @Resource
-    private List<String> httpsProxy;
+    private CopyOnWriteArrayList<String> httpsProxy;
     @Autowired
     private TLCProxyLoggerService tlcProxyLoggerService;
     @Autowired

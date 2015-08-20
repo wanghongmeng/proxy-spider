@@ -16,7 +16,9 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by wanghongmeng on 2015/7/15.
@@ -38,6 +40,8 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
     protected Executor schedulePool;
     @Autowired
     protected Executor threadPool;
+    @Autowired
+    protected Semaphore semaphore;
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
@@ -78,16 +82,13 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
         }
     }
 
-    protected void populateProxy(Queue<String> fetchQueue, List<String> proxy, TLCProxyConstants.PROXY_TYPE proxyType) {
+    protected void populateProxy(Queue<String> fetchQueue, CopyOnWriteArrayList<String> proxy, TLCProxyConstants.PROXY_TYPE proxyType) {
         try {
             if (fetchQueue.isEmpty()) {
                 tlcProxyLoggerService.getLogger().info("{}抓取队列为空，无新添加{}代理", proxyType.toString(), proxyType.toString());
             } else {
-                String ele;
-                while ((ele = fetchQueue.poll()) != null) {
-                    if (!proxy.contains(ele)) {
-                        proxy.add(ele);
-                    }
+                while (fetchQueue.peek() != null) {
+                    proxy.addIfAbsent(fetchQueue.poll());
                 }
             }
         } catch (Exception e) {
@@ -95,9 +96,10 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
         }
     }
 
-    protected void validateProxy(final List<String> proxy, final TLCProxyConstants.PROXY_TYPE proxyType, final TLCProxyJobValidator validator) {
+    protected void validateProxy(final CopyOnWriteArrayList<String> proxy, final TLCProxyConstants.PROXY_TYPE proxyType, final TLCProxyJobValidator validator) {
         try {
             for (final String proxyStr : proxy) {
+                semaphore.acquire();
                 String[] ipAddressArray = proxyStr.split(TLCProxyConstants.SPIDER_CONST_COLON);
                 final String ip = ipAddressArray[0];
                 String port = ipAddressArray[1];
@@ -106,18 +108,22 @@ public abstract class TLCProxyJob implements SchedulingConfigurer {
                 threadPool.execute(new Runnable() {
                     @Override
                     public void run() {
-                        tlcProxyLoggerService.getLogger().info("验证{}代理: {}", proxyType.toString(), proxyStr);
-                        if (BooleanUtils.isFalse(validator.doValidate(ip, portNum))) {
-                            tlcProxyLoggerService.getLogger().info("{}代理不可用，删除代理： {}", proxyType.toString(), proxyStr);
-                            proxy.remove(proxyStr);
-                        } else {
-                            tlcProxyLoggerService.getLogger().info("{}代理{}可用", proxyType.toString(), proxyStr);
+                        try {
+                            tlcProxyLoggerService.getLogger().info("验证{}代理: {}", proxyType.toString(), proxyStr);
+                            if (BooleanUtils.isFalse(validator.doValidate(ip, portNum))) {
+                                tlcProxyLoggerService.getLogger().info("{}代理不可用，删除代理： {}", proxyType.toString(), proxyStr);
+                                proxy.remove(proxyStr);
+                            } else {
+                                tlcProxyLoggerService.getLogger().info("{}代理{}可用", proxyType.toString(), proxyStr);
+                            }
+                        } finally {
+                            semaphore.release();
                         }
                     }
                 });
             }
             tlcProxyLoggerService.getLogger().info("{}当前可用代理数: {}", proxyType.toString(), proxy.size());
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             throw new TLCProxyProxyException(e);
         }
     }

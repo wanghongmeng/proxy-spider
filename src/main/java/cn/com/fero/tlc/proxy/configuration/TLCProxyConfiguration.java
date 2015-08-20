@@ -8,9 +8,13 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by wanghongmeng on 2015/7/17.
@@ -36,12 +40,12 @@ public class TLCProxyConfiguration {
 
     @Bean
     public List<String> httpProxy() {
-        return Collections.synchronizedList(new ArrayList());
+        return new CopyOnWriteArrayList();
     }
 
     @Bean
     public List<String> httpsProxy() {
-        return Collections.synchronizedList(new ArrayList());
+        return new CopyOnWriteArrayList();
     }
 
     @Bean
@@ -52,6 +56,11 @@ public class TLCProxyConfiguration {
     @Bean
     public Executor threadPool() {
         return Executors.newFixedThreadPool(TLCProxyConstants.SPIDER_CONST_THREAD_POOL_SIZE);
+    }
+
+    @Bean
+    public Semaphore semaphore() {
+        return new Semaphore(TLCProxyConstants.SPIDER_CONST_THREAD_POOL_SIZE);
     }
 
     @Bean
