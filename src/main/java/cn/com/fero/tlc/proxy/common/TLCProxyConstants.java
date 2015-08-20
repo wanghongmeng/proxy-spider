@@ -11,7 +11,7 @@ public final class TLCProxyConstants {
     public static final String SPIDER_CONST_DATE_TIME_FORMAT = "yyyy-MM-ss HH:mm:ss";
     public static final String SPIDER_CONST_RESPONSE_MESSAGE_NOT_FOUND = "没有数据";
     public static final String SPIDER_CONST_RESPONSE_MESSAGE_ERROR = "发生错误";
-        public static final String SPIDER_CONST_CRON_EXPRESSION_FETCH = "0 0 */1 * * ?";
+    public static final String SPIDER_CONST_CRON_EXPRESSION_FETCH = "0 0 */1 * * ?";
     public static final String SPIDER_CONST_CRON_EXPRESSION_VALIDATION = "0 */5 * * * ?";
     public static final String SPIDER_CONST_USER_AGETN = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36";
     public static final int SPIDER_CONST_RESPONSE_STATUS_SUCCESS = 200;
