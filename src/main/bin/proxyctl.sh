@@ -8,7 +8,7 @@ log_path=/opt/logs/job/${project_name}
 log_name=stdout
 pid=${log_path}/${project_name}.pid
 java_args="-DgroupName=${group_name} -DprojectName=${project_name} -DlogPath=${log_path}/${log_name}"
-jvm_args="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=50030 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Xms1G -Xmx1G -Xmn700M -XX:PermSize=128M -XX:MaxPermSize=128M -XX:+UseFastAccessorMethods -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSParallelRemarkEnabled -XX:MaxTenuringThreshold=20 -XX:CMSFullGCsBeforeCompaction=5 -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=75 -XX:-PrintGC  -XX:-PrintGCTimeStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -Xloggc:${log_path}/gc.log"
+jvm_args="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=10010 -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=120.26.78.60 -Dcom.sun.management.jmxremote.authenticate=false -Xms1G -Xmx1G -Xmn700M -XX:PermSize=128M -XX:MaxPermSize=128M -XX:+UseFastAccessorMethods -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSParallelRemarkEnabled -XX:MaxTenuringThreshold=20 -XX:CMSFullGCsBeforeCompaction=5 -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=75 -XX:-PrintGC  -XX:-PrintGCTimeStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -Xloggc:${log_path}/gc.log"
 
 export JAVA_HOME=/usr/local/jdk1.7.0_79/
 export PATH=$JAVA_HOME/bin:$PATH
