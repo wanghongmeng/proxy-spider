@@ -120,6 +120,8 @@ public class TLCProxyRequestService {
     private RequestConfig constructProxyConfig(String ip, int port) {
         RequestConfig.Builder builder = RequestConfig.custom();
         builder.setConnectTimeout(TLCProxyConstants.SPIDER_CONST_HTTP_TIMEOUT);
+        builder.setConnectionRequestTimeout(TLCProxyConstants.SPIDER_CONST_HTTP_TIMEOUT);
+        builder.setSocketTimeout(TLCProxyConstants.SPIDER_CONST_HTTP_TIMEOUT);
         builder.setProxy(new HttpHost(ip, port));
         return builder.build();
     }
@@ -127,6 +129,8 @@ public class TLCProxyRequestService {
     private RequestConfig constructHttpConfig() {
         RequestConfig.Builder builder = RequestConfig.custom();
         builder.setConnectTimeout(TLCProxyConstants.SPIDER_CONST_HTTP_TIMEOUT);
+        builder.setConnectionRequestTimeout(TLCProxyConstants.SPIDER_CONST_HTTP_TIMEOUT);
+        builder.setSocketTimeout(TLCProxyConstants.SPIDER_CONST_HTTP_TIMEOUT);
         return builder.build();
     }
 
