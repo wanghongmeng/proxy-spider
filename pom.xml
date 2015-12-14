@@ -19,9 +19,9 @@
 
     <scm>
         <tag>Git Repository</tag>
-        <connection></connection>
-        <developerConnection></developerConnection>
-        <url>http://192.168.0.68L8081/git/fero/fero-framework.git</url>
+        <connection>scm:git:git@github.com:feroltd/proxy-spider.git</connection>
+        <developerConnection>scm:git:git@github.com:feroltd/proxy-spider.git</developerConnection>
+        <url>https://github.com/feroltd/proxy-spider.git</url>
     </scm>
 
     <developers>
@@ -35,11 +35,6 @@
 
     <repositories>
         <repository>
-            <id>nexus</id>
-            <name>Fero Nexus Repository</name>
-            <url>http://192.168.0.252:8081/nexus/content/groups/public</url>
-        </repository>
-        <repository>
             <id>oschina</id>
             <name>OSChina Nexus Repository</name>
             <url>http://maven.oschina.net/content/groups/public</url>
@@ -47,11 +42,6 @@
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
-            <id>nexus</id>
-            <name>Fero Nexus Repository</name>
-            <url>http://192.168.0.252:8081/nexus/content/groups/public</url>
-        </pluginRepository>
         <pluginRepository>
             <id>oschina</id>
             <name>OSChina Nexus Repository</name>
