@@ -27,6 +27,6 @@
 ##项目构建
 
 ```javascript
-  mvn clean package -U -B
+  mvn clean compile package -U -B
 ```
 如果构建有问题,提示jar包找不到,请换成其他maven仓库,有些jar包开源中国仓库没有,我们使用公司内部仓库
