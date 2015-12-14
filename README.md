@@ -14,7 +14,7 @@
 
 * Email: dengj@fero.com.cn, wanghongmeng@fero.com.cn
 
-##加入汇融 [![Join US](http://tailicaiop.fero.com.cn/upload/picture/20151215/big/20151215010115.png)](http://www.fero.com.cn/category/joinus)
+##加入汇融 [![Join US](http://tailicaiop.fero.com.cn/upload/picture/20151215/big/20151215010159.png)](http://www.fero.com.cn/category/joinus)
 欢迎大家加入汇融,在这里你能接触到最新的技术,最先进的设计理念,最优秀的队友
 
 * 你需要:
