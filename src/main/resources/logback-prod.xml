@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="stdout" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${logPath}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${logPath}-%d{yyyy-MM-dd}.log</fileNamePattern>
@@ -14,6 +14,6 @@
     </appender>
 
     <root level="info">
-        <appender-ref ref="stdout"/>
+        <appender-ref ref="file"/>
     </root>
 </configuration>

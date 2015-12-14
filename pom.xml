@@ -9,16 +9,40 @@
         <version>1.2.5.RELEASE</version>
     </parent>
 
+    <name>Proxy Spider</name>
     <groupId>cn.com.fero</groupId>
-    <artifactId>tlc-proxy</artifactId>
-    <version>1.0.0</version>
-    <name>tlc-proxy</name>
+    <artifactId>proxy-spider</artifactId>
+    <version>1.0.0-SNAPSHOTS</version>
+    <packaging>jar</packaging>
+    <description>Fero Internal Util, Get Free Http Proxy</description>
+    <inceptionYear>2015</inceptionYear>
+
+    <scm>
+        <tag>Git Repository</tag>
+        <connection></connection>
+        <developerConnection></developerConnection>
+        <url>http://192.168.0.68L8081/git/fero/fero-framework.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>xiaowang</id>
+            <name>wanghongmeng</name>
+            <email>wanghongmeng@fero.com.cn</email>
+            <organization>fero.com.cn</organization>
+        </developer>
+    </developers>
 
     <repositories>
         <repository>
             <id>nexus</id>
             <name>Fero Nexus Repository</name>
             <url>http://192.168.0.252:8081/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>oschina</id>
+            <name>OSChina Nexus Repository</name>
+            <url>http://maven.oschina.net/content/groups/public</url>
         </repository>
     </repositories>
 
@@ -28,32 +52,32 @@
             <name>Fero Nexus Repository</name>
             <url>http://192.168.0.252:8081/nexus/content/groups/public</url>
         </pluginRepository>
+        <pluginRepository>
+            <id>oschina</id>
+            <name>OSChina Nexus Repository</name>
+            <url>http://maven.oschina.net/content/groups/public</url>
+        </pluginRepository>
     </pluginRepositories>
 
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <url>http://192.168.0.252:8081/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://192.168.0.252:8081/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <properties>
-        <java.version>1.7</java.version>
-        <tomcat.version>7.0.59</tomcat.version>
+        <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <property.version.spring>4.0.5.RELEASE</property.version.spring>
-        <property.version.mail>1.4.7</property.version.mail>
-        <properties.version.commons-lang3>3.4</properties.version.commons-lang3>
-        <properties.version.commons-collections>4.0</properties.version.commons-collections>
-        <propertie.version.http-client>4.3.1</propertie.version.http-client>
-        <properties.version.htmlcleaner>2.2.1</properties.version.htmlcleaner>
-        <properties.version.json-lib>2.4</properties.version.json-lib>
-        <properties.version.plugin.compile>2.5.1</properties.version.plugin.compile>
-        <properties.version.plugin.surefire>2.12.4</properties.version.plugin.surefire>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.resources.includeEmptyDirs>true</maven.resources.includeEmptyDirs>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.artifact.threads>10</maven.artifact.threads>
+        <java.version>1.7</java.version>
+        <spring.version>4.0.5.RELEASE</spring.version>
+        <mail.version>1.4.7</mail.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-collections4.version>4.0</commons-collections4.version>
+        <http-client.version>4.3.1</http-client.version>
+        <htmlcleaner.version>2.2.1</htmlcleaner.version>
+        <json-lib.version>2.4</json-lib.version>
+        <compile.version>2.5.1</compile.version>
+        <surefire.version>2.12.4</surefire.version>
+        <jar.version>2.6</jar.version>
     </properties>
 
     <dependencies>
@@ -72,58 +96,78 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>${property.version.spring}</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>${property.version.mail}</version>
+            <version>${mail.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${properties.version.commons-lang3}</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>${properties.version.commons-collections}</version>
+            <version>${commons-collections4.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>${propertie.version.http-client}</version>
+            <version>${http-client.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.htmlcleaner</groupId>
             <artifactId>htmlcleaner</artifactId>
-            <version>${properties.version.htmlcleaner}</version>
+            <version>${htmlcleaner.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
-            <version>${properties.version.json-lib}</version>
+            <version>${json-lib.version}</version>
             <classifier>jdk15</classifier>
         </dependency>
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${properties.version.plugin.compile}</version>
-                <!--<configuration>-->
-                    <!--<source>${java.version}</source>-->
-                    <!--<target>${java.version}</target>-->
-                <!--</configuration>-->
+                <version>${compile.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${properties.version.plugin.surefire}</version>
+                <version>${surefire.version}</version>
                 <configuration>
                     <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${jar.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>

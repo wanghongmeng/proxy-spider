@@ -44,9 +44,9 @@ tlc:
                 username: gtsboss@fero.com.cn
                 password: fero1234
             subject:
-                error: 钛理财代理错误
+                error: 代理错误
             receiver:
-                error: wanghongmeng@fero.com.cn, shaolichao@fero.com.cn
+                error: admin@fero.com.cn
 
 ---
 spring:
