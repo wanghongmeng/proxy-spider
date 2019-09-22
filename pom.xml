@@ -66,7 +66,7 @@
         <htmlcleaner.version>2.2.1</htmlcleaner.version>
         <json-lib.version>2.4</json-lib.version>
         <compile.version>2.5.1</compile.version>
-        <surefire.version>2.12.4</surefire.version>
+        <surefire.version>2.20.1</surefire.version>
         <jar.version>2.6</jar.version>
     </properties>
 
